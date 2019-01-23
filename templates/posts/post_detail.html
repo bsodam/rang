@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ post.title }}</h2>
+
+<ul>
+    <li>국가: {{ post.region }}</li>
+    <li>작성자: {{ post.author }}</li>
+    <li>하트: {{ post.heart }}</li>
+    <li>똥: {{ post.poop }}</li>
+    <li>작성시간: {{ post.time_created }}</li>
+</ul>
+    <p>{{ post.content }}</p>
+<hr>
+
+<h3>댓글</h3>
+{% endblock content %}

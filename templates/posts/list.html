@@ -4,6 +4,14 @@
 
 <h2>글로벌</h2>
 
+<a href=""><input type="button" value="글쓰기"></a>
+
+<form action="/post/search_results/" method="get">
+    {% csrf_token %}
+    <input type="text" name="search_keyword" >
+    <input type="submit" value="검색">
+</form>
+
 {% if post_list %}
     <table border="1">
         <th>제목</th>
