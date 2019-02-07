@@ -19,7 +19,14 @@ class DetailView(DetailView):
 
 
 class CreateView(CreateView):
-    pass
+    model = Post
+    fields = ['title', 'content']
+    success_url = '/post/list'
+
+    # def form_valid(self, form):
+    #     form.instance.user_name = self.request.user
+    #     return super().form_valid(form)
+
 
 class SearchResultListView(ListView):
     template_name = 'posts/list.html'

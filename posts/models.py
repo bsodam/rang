@@ -1,7 +1,12 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    region = models.CharField(max_length=30)
+    heart = models.IntegerField(default=10)
+    poop = models.IntegerField(default=10)
 
 
 class Post(models.Model):
@@ -12,6 +17,13 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     heart = models.IntegerField(default=0)
     poop = models.IntegerField(default=0)
+    comment_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
+
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post, related_name=)
+#     author =
+#     content = models.TextField()
+#     comment_id =

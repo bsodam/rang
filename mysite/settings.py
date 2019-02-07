@@ -25,7 +25,7 @@ SECRET_KEY = 'nron=rzfu_wysl^$24g-30lu-bgb^bs5!omm+8#!yqlz=h7bru'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.7']
 
 
 # Application definition
@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -125,3 +125,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'www_dir', 'static')
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'
 LOGIN_URL = '/login'
+
