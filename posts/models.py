@@ -3,8 +3,14 @@ from django.db import models
 
 
 class Profile(models.Model):
+    REGION_CHOICES = (
+        ('미국', '미국'),
+        ('중국', '중국'),
+        ('일본', '일본'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    region = models.CharField(max_length=30)
+    region = models.CharField(max_length=30, choices=REGION_CHOICES)
     heart = models.IntegerField(default=10)
     poop = models.IntegerField(default=10)
 
