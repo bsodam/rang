@@ -1,15 +1,21 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>헬로월드</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <title>Service name</title>
 </head>
 <body>
-<h1>헬로월드</h1>
+<div class="page-header">
+<h1>Service name</h1>
+</div>
 
 <ul class='sidebar-nav'>
     {% if user.is_authenticated %}
-    {{ user.username }} 님!
+    [{{ user.profile.region }}]{{ user.username }} 님! 오늘 남은 하트:{{ user.profile.heart }} 똥:{{ user.profile.poop }}
     <li>설정</li>
     <li><a href="/logout">로그아웃</a></li>
     {% else %}

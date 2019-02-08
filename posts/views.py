@@ -9,9 +9,10 @@ from posts.models import Post
 class ListView(ListView):
     template_name = 'posts/list.html'
     context_object_name = 'post_list'
+    paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.order_by('id')
+        return Post.objects.order_by('-time_created')
 
 
 class DetailView(DetailView):

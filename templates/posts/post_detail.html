@@ -11,8 +11,23 @@
     <li>똥: {{ post.poop }}</li>
     <li>작성시간: {{ post.time_created }}</li>
 </ul>
-    <p>{{ post.content }}</p>
+    <p>{{ post.content|linebreaks }}</p>
 <hr>
 
 <h3>댓글</h3>
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" name="content" placeholder="댓글을 입력하세요.">
+    <input type="submit" value="댓글 쓰기">
+</form>
+
+{% for comment in post.comments.all %}
+<div class="comment">
+    <strong>{{ comment.author }}</strong>
+    <p>{{ comment.time_created }}</p>
+    <p>{{ comment.content }}</p>
+{% empty %}
+    <p>댓글이 없습니다.</p>
+</div>
+{% endfor %}
 {% endblock content %}
