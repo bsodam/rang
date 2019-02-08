@@ -4,6 +4,10 @@
 
 <h2>{{ post.title }}</h2>
 
+<a href="{% url 'posts:edit' pk=post.pk %}"><input type="submit" value="수정"></a>
+<a href="{% url 'posts:remove' pk=post.pk %}"><input type="submit" value="삭제"></a>
+
+
 <ul>
     <li>국가: {{ post.region }}</li>
     <li>작성자: {{ post.author }}</li>
@@ -12,6 +16,7 @@
     <li>작성시간: {{ post.time_created }}</li>
 </ul>
     <p>{{ post.content|linebreaks }}</p>
+
 <hr>
 
 <h3>댓글</h3>

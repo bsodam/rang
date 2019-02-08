@@ -6,6 +6,8 @@ urlpatterns = [
     path('list/all/', views.ListView.as_view(), name='list'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('search_results/', views.SearchResultListView.as_view(), name='search_results'),
-    path('create/', views.CreateView.as_view(), name='create'),
+    path('create/', views.post_new, name='create'),
+    path('<int:pk>/edit/', views.post_edit, name='edit'),
+    path('<int:pk>/remove/', views.post_remove, name='remove'),
 
 ]

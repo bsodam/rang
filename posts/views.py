@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.views.generic import ListView, DetailView, CreateView
 
-from posts.models import Post
+from mysite.forms import PostForm
+from posts.models import Post, Profile
 
 
 class ListView(ListView):
@@ -37,3 +39,45 @@ class SearchResultListView(ListView):
         search_keyword = self.request.GET.get('search_keyword', '')
         return Post.objects.filter(title__contains=search_keyword)
 
+
+@login_required
+def post_new(request):
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            user_profile = Profile.objects.get(user=user)
+            user_region = user_profile.region
+
+            post = form.save(commit=False)
+            post.author = user
+            post.region = user_region
+            post.save()
+            return redirect('posts:detail', pk=post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'posts/post_form.html', {'form': form})
+
+
+@login_required
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('posts:detail', pk=post.pk)
+
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'posts/post_form.html', {'form': form})
+
+
+@login_required
+def post_remove(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('posts:list')

@@ -3,6 +3,10 @@ from django.db import models
 
 
 class Profile(models.Model):
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profile'
+
     REGION_CHOICES = (
         ('미국', '미국'),
         ('중국', '중국'),
