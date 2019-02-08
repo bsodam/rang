@@ -20,7 +20,7 @@
 <hr>
 
 <h3>댓글</h3>
-<form action="" method="POST">
+<form action="/post/{{ post.pk }}/comment/" method="POST">
     {% csrf_token %}
     <input type="text" name="content" placeholder="댓글을 입력하세요.">
     <input type="submit" value="댓글 쓰기">
@@ -31,6 +31,7 @@
     <strong>{{ comment.author }}</strong>
     <p>{{ comment.time_created }}</p>
     <p>{{ comment.content }}</p>
+    <a href=""><input type="submit" value="댓글삭제"></a>
 {% empty %}
     <p>댓글이 없습니다.</p>
 </div>

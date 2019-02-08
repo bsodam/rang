@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
 from mysite.forms import PostForm
-from posts.models import Post, Profile
+from posts.models import Post, Profile, Comment
 
 
 class ListView(ListView):
@@ -81,3 +81,23 @@ def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('posts:list')
+
+
+@login_required
+def comment_add(request, pk):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=pk)
+        content = request.POST.get('content')
+
+        user = request.user
+        user_profile = Profile.objects.get(user=user)
+
+        Comment.objects.create(post=post, author=user, content=content)
+        return redirect('posts:detail', pk=pk)
+
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('posts:detail', pk=pk)
