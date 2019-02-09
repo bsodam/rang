@@ -97,7 +97,8 @@ def comment_add(request, pk):
 
 
 @login_required
-def comment_remove(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+def comment_remove(request, pk, pk_comment):
+    comment = get_object_or_404(Comment, pk=pk_comment)
+
     comment.delete()
     return redirect('posts:detail', pk=pk)
