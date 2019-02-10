@@ -9,7 +9,7 @@ from posts.models import Post, Profile, Comment
 
 
 class ListView(ListView):
-    template_name = 'posts/list.html'
+    template_name = 'posts/list_all.html'
     context_object_name = 'post_list'
     paginate_by = 10
 
@@ -32,12 +32,23 @@ class CreateView(CreateView):
 
 
 class SearchResultListView(ListView):
-    template_name = 'posts/list.html'
+    template_name = 'posts/list_all.html'
     context_object_name = 'post_list'
 
     def get_queryset(self):
         search_keyword = self.request.GET.get('search_keyword', '')
         return Post.objects.filter(title__contains=search_keyword)
+
+
+@login_required
+def list_local(request):
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
+    user_region = user_profile.region
+
+    regional_post_list = Post.objects.filter(region=user_region)
+
+    return render(request, 'posts/list_local.html', {'region': user_region, 'post_list': regional_post_list})
 
 
 @login_required

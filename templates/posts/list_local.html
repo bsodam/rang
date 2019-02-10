@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ region }} 게시판</h2>
+
+<a href="/post/create/"><input type="button" value="글쓰기"></a>
+
+<form action="/post/search_results/" method="get">
+    {% csrf_token %}
+    <input type="text" name="search_keyword" >
+    <input type="submit" value="검색">
+</form>
+
+{% if post_list %}
+    <table border="1">
+        <th>국가</th>
+        <th>제목</th>
+        {% for post in post_list %}
+        <tr>
+            <td><a href="/post/{{ post.id }}">{{ post.region }}</a></td>
+            <td><a href="/post/{{ post.id }}">{{ post.title }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+    <p>등록된 글이 없습니다.</p>
+    {% endif %}
+
+{% endblock content %}
