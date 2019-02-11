@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'posts.apps.PostsConfig',
 ]
 
@@ -98,6 +99,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+CRONTAB_COMMAND_SUFFIX = '2>&1'
+# Crontab
+CRONJOBS = [
+    # '0 0 * * *' 매일 자정
+    ('0 0 * * *', 'mysite.cron.my_scheduled_job', '>> /tmp/scheduled_job.log'),
 ]
 
 

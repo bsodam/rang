@@ -38,6 +38,22 @@ class Profile(models.Model):
     heart = models.IntegerField(default=10)
     poop = models.IntegerField(default=10)
 
+    def sub_heart(self):
+        self.heart -= 1
+        self.save()
+
+    def sub_poop(self):
+        self.poop -= 1
+        self.save()
+
+    def refill_heart(self):
+        self.heart = 10
+        self.save()
+
+    def refill_poop(self):
+        self.poop = 10
+        self.save()
+
 
 class Post(models.Model):
     title = models.CharField(max_length=100)

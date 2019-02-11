@@ -146,6 +146,7 @@ def add_heart(request, pk):
         pass
 
     post.add_heart()
+    user_profile.sub_heart()
 
     return redirect('posts:detail', pk=pk)
 
@@ -161,5 +162,6 @@ def add_poop(request, pk):
         pass
 
     post.add_poop()
+    user_profile.sub_poop()
 
     return redirect('posts:detail', pk=pk)
