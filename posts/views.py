@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
 from mysite.forms import PostForm
-from posts.models import Post, Profile, Comment
+from posts.models import Post, Profile, Comment, CommentOnComment
 
 
 class ListView(ListView):
@@ -91,7 +91,7 @@ def post_edit(request, pk):
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    return redirect('posts:list')
+    return redirect('posts:list_local')
 
 
 @login_required
@@ -112,4 +112,54 @@ def comment_remove(request, pk, pk_comment):
     comment = get_object_or_404(Comment, pk=pk_comment)
 
     comment.delete()
+    return redirect('posts:detail', pk=pk)
+
+
+@login_required
+def comment_on_comment(request, pk, pk_comment):
+    if request.method == 'POST':
+        comment = get_object_or_404(Comment, pk=pk_comment)
+        content = request.POST.get('content')
+
+        user = request.user
+
+        CommentOnComment.objects.create(comment=comment, author=user, content=content)
+        return redirect('posts:detail', pk=pk)
+
+
+@login_required
+def comment_on_comment_remove(request, pk, pk_comment_on_comment):
+    comment_on_comment = get_object_or_404(CommentOnComment, pk=pk_comment_on_comment)
+
+    comment_on_comment.delete()
+    return redirect('posts:detail', pk=pk)
+
+
+@login_required
+def add_heart(request, pk):
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
+    user_heart = user_profile.heart
+    post = get_object_or_404(Post, pk=pk)
+
+    if user_heart == 0:
+        pass
+
+    post.add_heart()
+
+    return redirect('posts:detail', pk=pk)
+
+
+@login_required
+def add_poop(request, pk):
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
+    user_poop = user_profile.poop
+    post = get_object_or_404(Post, pk=pk)
+
+    if user_poop == 0:
+        pass
+
+    post.add_poop()
+
     return redirect('posts:detail', pk=pk)

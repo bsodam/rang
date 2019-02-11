@@ -15,6 +15,15 @@
     <li>똥: {{ post.poop }}</li>
     <li>작성시간: {{ post.time_created }}</li>
 </ul>
+<form action="/post/{{ post.pk }}/add_heart/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="하트추가">
+</form>
+<form action="/post/{{ post.pk }}/add_poop/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="똥추가">
+</form>
+
     <p>{{ post.content|linebreaks }}</p>
 
 <hr>
@@ -31,7 +40,21 @@
     <strong>{{ comment.author }}</strong>
     <p>{{ comment.time_created }}</p>
     <p>{{ comment.content }}</p>
-    <a href="/post/{{ post.pk }}/comment/{{ comment.pk }}"><input type="submit" value="댓글삭제"></a>
+    <a href="/post/{{ post.pk }}/comment_remove/{{ comment.pk }}"><input type="submit" value="댓글삭제"></a>
+    {% for comment_on_comment in comment.comment_on_comment.all %}
+        <div class="comment_on_comment">
+            <strong>{{ comment_on_comment.author }}</strong>
+            <p>{{ comment_on_comment.time_created }}</p>
+            <p>{{ comment_on_comment.content }}</p>
+            <a href="/post/{{ post.pk }}/comment_on_comment_remove/{{ comment_on_comment.pk }}"><input type="submit" value="대댓글삭제"></a>
+        </div>
+    {% endfor %}
+    <form action="/post/{{ post.pk }}/comment_on_comment/{{ comment.pk }}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="content" placeholder="대댓글을 입력하세요.">
+        <input type="submit" value="대댓글 쓰기">
+    </form>
+    <hr>
 {% empty %}
     <p>댓글이 없습니다.</p>
 </div>

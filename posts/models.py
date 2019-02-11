@@ -55,11 +55,25 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def add_heart(self):
+        self.heart += 1
+        self.save()
+
+    def add_poop(self):
+        self.poop += 1
+        self.save()
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    parent = models.IntegerField(default=None, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
 
+class CommentOnComment(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_on_comment')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    time_created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
