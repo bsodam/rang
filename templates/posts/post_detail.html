@@ -2,7 +2,9 @@
 
 {% block content %}
 
+<p><a href="/post/list">국가게시판 보기</a></p>
 <h2>{{ post.title }}</h2>
+
 
 <a href="{% url 'posts:edit' pk=post.pk %}"><input type="submit" value="수정"></a>
 <a href="{% url 'posts:remove' pk=post.pk %}"><input type="submit" value="삭제"></a>

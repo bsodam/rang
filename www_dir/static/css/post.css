@@ -1,8 +1,9 @@
-.content {
+body {
     padding-left: 15px;
 }
 
 .sidebar-nav {
+    background-color: #d3d3d3
     width: 260px;
     padding: 20px;
     margin-bottom: 20px;

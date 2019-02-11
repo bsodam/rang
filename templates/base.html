@@ -13,9 +13,13 @@
     <a href="/"><h1>Service name</h1></a>
 </div>
 
-<ul class='sidebar-nav'>
+
+<div class="sidebar-nav">
+<ul>
     {% if user.is_authenticated %}
-    [{{ user.profile.region }}]{{ user.username }} 님! 오늘 남은 하트:{{ user.profile.heart }} 똥:{{ user.profile.poop }}
+    <li>[{{ user.profile.region }}] {{ user.username }} 님!</li>
+    <li>오늘 남은 하트:{{ user.profile.heart }}</li>
+    <li>오늘 남은 똥:{{ user.profile.poop }}</li>
     <li>설정</li>
     <li><a href="/logout">로그아웃</a></li>
     {% else %}
@@ -23,9 +27,12 @@
     <li><a href="/signup">회원가입</a></li>
     {% endif %}
 </ul>
+</div>
 
+<div class="content">
 {% block content %}
 {% endblock %}
+</div>
 
 </body>
 </html>
