@@ -12,9 +12,9 @@
 <h2>세계의 한인들을 위한 익명앱, </h2>
 <h1>Service name</h1>
 <hr>
-<p><a href="/login">로그인</a></p>
-<p><a href="/signup">회원가입</a></p>
-<p><a href="/post/list">국가게시판 보기</a></p>
-<p><a href="/post/list/all">[Test용] 전체게시판 보기</a></p>
+<p><a href="{% url 'login' %}">로그인</a></p>
+<p><a href="{% url 'signup' %}">회원가입</a></p>
+<p><a href="{% url 'post:list_local' %}">국가게시판 보기</a></p>
+<p><a href="{% url 'post:list_all' %}">[Test용] 전체게시판 보기</a></p>
 </body>
 </html>

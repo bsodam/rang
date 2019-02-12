@@ -4,7 +4,7 @@
 
 <h2>{{ region }} 게시판</h2>
 
-<a href="/post/create/"><input type="button" value="글쓰기"></a>
+<a href="{% url 'posts:create' %}"><input type="button" value="글쓰기"></a>
 
 <form action="/post/search_results/" method="get">
     {% csrf_token %}
@@ -18,8 +18,8 @@
         <th>제목</th>
         {% for post in post_list %}
         <tr>
-            <td><a href="/post/{{ post.id }}">{{ post.region }}</a></td>
-            <td><a href="/post/{{ post.id }}">{{ post.title }}</a></td>
+            <td>{{ post.region }}</td>
+            <td><a href="{% url 'posts:detail' pk=post.pk %}">{{ post.title }}</a></td>
         </tr>
         {% endfor %}
     </table>

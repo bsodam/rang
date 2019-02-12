@@ -17,11 +17,11 @@
     <li>똥: {{ post.poop }}</li>
     <li>작성시간: {{ post.time_created }}</li>
 </ul>
-<form action="/post/{{ post.pk }}/add_heart/" method="POST">
+<form action="{% url 'posts:add_heart' pk=post.pk %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="하트추가">
 </form>
-<form action="/post/{{ post.pk }}/add_poop/" method="POST">
+<form action="{% url 'posts:add_poop' pk=post.pk %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="똥추가">
 </form>
@@ -42,7 +42,7 @@
     <strong>{{ comment.author }}</strong>
     <p>{{ comment.time_created }}</p>
     <p>{{ comment.content }}</p>
-    <a href="/post/{{ post.pk }}/comment_remove/{{ comment.pk }}"><input type="submit" value="댓글삭제"></a>
+    <a href="{% url 'posts:comment_remove' pk=post.pk pk_comment=comment.pk %}"><input type="submit" value="댓글삭제"></a>
     {% for comment_on_comment in comment.comment_on_comment.all %}
         <div class="comment_on_comment">
             <strong>{{ comment_on_comment.author }}</strong>

@@ -2,6 +2,5 @@
 
 {% block content %}
 <h1>회원가입이 완료되었습니다!</h1>
-<a href="/"><input type="submit" value="홈"></a>
-<a href="/login"><input type="submit" value="로그인"></a>
+<a href="{% url 'login' %}"><input type="submit" value="로그인"></a>
 {% endblock content %}
