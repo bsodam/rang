@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
 from mysite.forms import PostForm
-from posts.models import Post, Profile, Comment, CommentOnComment
+from posts.models import Post, Profile, Comment, CommentOnComment, FavoritePost
 
 
 class ListView(ListView):
@@ -38,6 +38,15 @@ class SearchResultListView(ListView):
     def get_queryset(self):
         search_keyword = self.request.GET.get('search_keyword', '')
         return Post.objects.filter(title__contains=search_keyword)
+
+
+class HeartListView(ListView):
+    template_name = 'posts/list_local.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        user = self.request.user
+        return FavoritePost.objects.filter(user=user)
 
 
 @login_required
@@ -165,3 +174,4 @@ def add_poop(request, pk):
     user_profile.sub_poop()
 
     return redirect('posts:detail', pk=pk)
+

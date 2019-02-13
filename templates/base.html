@@ -21,6 +21,7 @@
     <li>오늘 남은 하트:{{ user.profile.heart }}</li>
     <li>오늘 남은 똥:{{ user.profile.poop }}</li>
     <li>설정</li>
+    <li><a href="{% url 'posts:list_heart' %}">하트표시한글</a></li>
     <li><a href="{% url 'logout' %}">로그아웃</a></li>
     {% else %}
     <li><a href="{% url 'login' %}">로그인</a></li>

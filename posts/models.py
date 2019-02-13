@@ -93,3 +93,9 @@ class CommentOnComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
+
+
+class FavoritePost(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
